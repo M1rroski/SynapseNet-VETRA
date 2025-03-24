@@ -7,17 +7,18 @@ import os
 
 app = FastAPI()
 
-# Configuración del modelo Mistral (esto puede cambiar según la implementación real)
-MISTRAL_API_URL = "https://api.mistral.ai/v1/agents/completions"
-MISTRAL_API_KEY = os.getenv("uy2DxEZgA9z49oPJZ1hM7zJHvBOeFu9F", "")
+# Configuración del modelo Mistral (verifica que la API URL sea correcta)
+MISTRAL_API_URL = "https://api.mistral.ai/v1/completions"  # Verifica este endpoint
+MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY", "")
 
 # Endpoints de fuentes de datos financieros
 ALPHA_VANTAGE_API = "https://www.alphavantage.co/query"
 YAHOO_FINANCE_API = "https://query1.finance.yahoo.com/v7/finance/quote"
 OPEN_EXCHANGE_RATES_API = "https://openexchangerates.org/api/latest.json"
 
+# Verificar que la API Key está configurada correctamente
 if not MISTRAL_API_KEY:
-    raise ValueError("MISTRAL_API_KEY no está configurada")
+    raise ValueError("MISTRAL_API_KEY no está configurada correctamente")
 
 @app.get("/consulta")
 def consulta_ia(mensaje: str):
@@ -25,11 +26,17 @@ def consulta_ia(mensaje: str):
     try:
         respuesta = requests.post(
             MISTRAL_API_URL,
-            json={"prompt": mensaje},
+            json={"prompt": mensaje, "model": "mistral-7b"},  # Verifica si necesitas especificar el modelo
             headers={"Authorization": f"Bearer {MISTRAL_API_KEY}"}
         )
         respuesta.raise_for_status()
-        return respuesta.json()
+        respuesta_json = respuesta.json()
+
+        # Validar si Mistral responde con un error
+        if "error" in respuesta_json:
+            raise HTTPException(status_code=500, detail=f"Error en Mistral: {respuesta_json['error']}")
+
+        return respuesta_json
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=500, detail=f"Error en la consulta IA: {str(e)}")
 
