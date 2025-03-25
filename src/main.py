@@ -4,11 +4,12 @@
 from fastapi import FastAPI, HTTPException
 import requests
 import os
+from api import router
 
 app = FastAPI()
 
 # Configuración del modelo Mistral (verifica que la API URL sea correcta)
-MISTRAL_API_URL = "https://api.mistral.ai/v1/completions"  # Verifica este endpoint
+MISTRAL_API_URL = "https://api.mistral.ai/v1/agents/untitled-agent-0f687954/completions"  # Verifica este endpoint
 MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY", "")
 
 # Endpoints de fuentes de datos financieros
