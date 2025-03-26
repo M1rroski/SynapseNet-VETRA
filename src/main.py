@@ -4,7 +4,7 @@
 from fastapi import FastAPI, HTTPException
 import requests
 import os
-from api import router
+from src.api import router
 
 app = FastAPI()
 
