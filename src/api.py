@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
-from mistral_model import consultar_mistral
-from data_sources import obtener_datos_yahoo
-from utils import formatear_respuesta
+from src.mistral_model import consultar_mistral
+from src.data_sources import obtener_datos_yahoo
+from src.utils import formatear_respuesta
 
 router = APIRouter()
 
