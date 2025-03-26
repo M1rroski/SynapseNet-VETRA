@@ -1,5 +1,5 @@
 import requests
-from config import MISTRAL_API_URL, MISTRAL_API_KEY
+from src.config import MISTRAL_API_URL, MISTRAL_API_KEY
 
 def consultar_mistral(mensaje: str):
     """Consulta a la IA de Mistral con un mensaje."""
