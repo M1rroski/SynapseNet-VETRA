@@ -1,5 +1,5 @@
 import requests
-from config.config import ALPHA_VANTAGE_API, YAHOO_FINANCE_API, OPEN_EXCHANGE_RATES_API
+from src.config import ALPHA_VANTAGE_API, YAHOO_FINANCE_API, OPEN_EXCHANGE_RATES_API
 
 def obtener_datos_yahoo(ticker: str):
     """Obtiene datos de Yahoo Finance para un ticker."""
