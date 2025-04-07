@@ -5,7 +5,7 @@ from fastapi import FastAPI, HTTPException
 import requests
 import os
 from src.api import router
-from federated_learning.trainer import start_federated_training
+from scr.federated_learning.trainer import start_federated_training
 
 app = FastAPI()
 
@@ -14,7 +14,7 @@ MISTRAL_API_URL = "https://api.mistral.ai/v1/agents/untitled-agent-0f687954/comp
 MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY", "")
 
 # Endpoints de fuentes de datos financieros
-ALPHA_VANTAGE_API = "https://www.alphavantage.co/query"
+ALPHA_VANTAGE_API = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&IFILJMAFBEI4SVM2=demo"
 YAHOO_FINANCE_API = "https://query1.finance.yahoo.com/v7/finance/quote"
 OPEN_EXCHANGE_RATES_API = "https://openexchangerates.org/api/latest.json"
 
