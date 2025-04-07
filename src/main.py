@@ -5,6 +5,7 @@ from fastapi import FastAPI, HTTPException
 import requests
 import os
 from src.api import router
+from federated_learning.trainer import start_federated_training
 
 app = FastAPI()
 
@@ -40,6 +41,15 @@ def consulta_ia(mensaje: str):
         return respuesta_json
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=500, detail=f"Error en la consulta IA: {str(e)}")
+
+@app.get("/entrenar-federado")
+def entrenar_federado():
+    """Lanza el entrenamiento federado (modo demo)."""
+    try:
+        resultado = start_federated_training()
+        return resultado
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error en federated learning: {str(e)}")
 
 @app.get("/datos")
 def obtener_datos_financieros(ticker: str):
